@@ -385,10 +385,10 @@ const server = app.listen(PORT, HOST, () => {
   const addr = server.address();
   if (!addr || typeof addr === 'string') return;
 
-  const baseUrl =
-    process.env.BASE_URL || process.env.NODE_ENV === 'production'
-      ? `https://${process.env.HOST || 'localhost'}`
-      : `http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${addr.port}`;
-
+  const baseUrl = process.env.BASE_URL || 
+  (process.env.NODE_ENV === 'production'
+    ? `https://${process.env.RENDER_EXTERNAL_URL || process.env.HOST || 'localhost'}`
+    : `http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${addr.port}`);
+  
   generateEmbedScript(baseUrl);
 });
